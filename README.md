@@ -114,6 +114,14 @@ But, [This guide](https://linode.com/docs/uptime/loadbalancing/use-nginx-as-a-fr
 
 After those changes, everythign seems to be running happily, including apache. And, both sites are now pointing to their appropriate `/var/www/html/site.com/public_html` directories! 
 
+Aaaan it's not working again. It worked for a little bit, but now the second site is back to pointing to the first. Odd that it worked for just a minute. Both apache and nginx are running fine according to their statuses. 
+
+```
+/etc/init.d/nginx status
+/etc/init.d/apache2 status
+```
+
+Back to being lost. 
 
 ---
 
