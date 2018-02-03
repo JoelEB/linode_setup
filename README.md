@@ -87,9 +87,10 @@ sudo service nginx reload
 sudo ls -la /etc/nginx/sites-enabled/
 ```
 
-After this, I was no longer seeing the defautl apache index.html page, however, now my second site was just pointing to my first. Furthermore, I could not access the phptest.php file or any other file that was supposed to be linked in the apache virtual host file (`/var/www/html/secondsite.com/public_html`). 
+After this, I was no longer seeing the default apache index.html page, however, now my second site was just pointing to my first. Furthermore, I could not access the phptest.php file or any other file that was supposed to be linked in the apache virtual host file (`/var/www/html/secondsite.com/public_html`). 
 
-7. Then I copied and linked the .conf file that was created (when ghost was installed?) for my second site. ~~Not sure if this was actually necessary or not. ~~
+7. Then I copied and linked the .conf file that was created (when ghost was installed?) for my second site. 
+~~Not sure if this was actually necessary or not.~~
 Seems like this was definitely necessary based on the solution found below. 
 
 ```
@@ -120,9 +121,9 @@ So I split the different and left joeleb.com's .conf file as is and changed the 
 
 This seems to be working with moderate success. 
 
-~~I still can seem to access other files in `public_html`. Although, while http://touchdrums.com/phptest.php/ will show me the correct php page, http://www.touchdrums.com/phptest.php/, will not, it returns 404. ~~
+~~I still can seem to access other files in `public_html`. Although, while http://touchdrums.com/phptest.php/ will show me the correct php page, http://www.touchdrums.com/phptest.php/, will not, it returns 404.~~
 
-After uploading another test html page, ~~neither http://www.touchdrums.com/electricblanket.html or http://touchdrums.com/electricblanket.html will return anything. ~~
+After uploading another test html page, ~~neither http://www.touchdrums.com/electricblanket.html or http://touchdrums.com/electricblanket.html will return anything.~~
 
 Still can't get the random html pages to show up, but the www. vs no ww. issue was due to me not adding the second alias to the `server_name` in the nginx .conf file for touchdrums.com. Adding change to file copy below. 
 
