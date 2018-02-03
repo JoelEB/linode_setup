@@ -73,10 +73,17 @@ sudo apt install nodejs
 sudo npm install -g ghost-cli@latest
 sudo chown -R joel21987:joel21987 /var/www/html/joeleb.com/public_html/
 sudo chown -R joel21987:joel21987 /var/www/html/touchdrums.com/public_html/
-sudo nano /etc/apache2/sites-available/joeleb.com.conf 
-sudo nano /etc/apache2/sites-available/touchdrums.com.conf 
-sudo systemctl restart apache2
 ```
+* Make sure the directory in which you're installing Ghost is completely empty. 
+
+```
+sudo rm phptest.php 
+sudo rm access.log 
+sudo rm error.log 
+sudo ghost install
+```
+
+Ghost should now be running on joeleb.com. 
 
 6. This is where things usually get difficult. You should now have a Ghost site running. But you'll probably not see the second site correctly. It will likely be pointing to the Apache index.hmtl file located in /var/www/html. To remedy this, I disabled (deleted?) the default nginx .conf file, similar to how the default apache .conf file was in previous steps. 
 
