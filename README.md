@@ -113,3 +113,73 @@ It was about this time I noticed that restarting apache was returnign an error. 
 But, [This guide](https://linode.com/docs/uptime/loadbalancing/use-nginx-as-a-front-end-proxy-and-software-load-balancer/) seemed to offer the solution. The problem is, I don't know if it's a proper solution. I followed most of the steps in `Configure Apache for Port Listening`, buti t was about that time I noticed the nginx .conf files might just need their root altered, just like it was in the apache .conf files (`root /var/www/html/example.com;`)
 
 After those changes, everythign seems to be running happily, including apache. And, both sites are now pointing to their appropriate `/var/www/html/site.com/public_html` directories! 
+
+
+---
+
+#### nginx .conf file 
+
+`sudo nano /etc/nginx/sites-available/joeleb.com.conf`
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name www.joeleb.com joeleb.com;
+    root /var/www/html/joeleb.com/public_html/;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:2368;
+    }
+
+    location ~ /.well-known {
+        allow all;
+    }
+
+    client_max_body_size 50m;
+}
+```
+
+#### apache .conf file
+
+`sudo nano /etc/apache2/sites-available/joeleb.com.conf`
+
+```
+<VirtualHost *:8000>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        ServerName joeleb.com
+        ServerAlias www.joeleb.com
+        ServerAdmin webmaster@joeleb.com
+        DocumentRoot /var/www/html/joeleb.com/public_html
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog /var/www/html/joeleb.com/public_html/error.log
+        CustomLog /var/www/html/joeleb.com/public_html/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
+
