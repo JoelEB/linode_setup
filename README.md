@@ -127,11 +127,11 @@ So I split the different and left joeleb.com's .conf file as is and changed the 
 
 This seems to be working with moderate success. 
 
-I still can seem to access other files in `public_html`. Although, while http://touchdrums.com/phptest.php/ will show me the correct php page, http://www.touchdrums.com/phptest.php/, will not, it returns 404. 
+~~I still can seem to access other files in `public_html`. Although, while http://touchdrums.com/phptest.php/ will show me the correct php page, http://www.touchdrums.com/phptest.php/, will not, it returns 404. ~~
 
-After uploading another test html page, neither http://www.touchdrums.com/electricblanket.html or http://touchdrums.com/electricblanket.html wil return anything. 
+After uploading another test html page, ~~neither http://www.touchdrums.com/electricblanket.html or http://touchdrums.com/electricblanket.html will return anything. ~~
 
-Very odd. 
+Still can't get the random html pages to show up, but the www. vs no ww. issue was due to me not adding the second alias to the `server_name` in the nginx .conf file for touchdrums.com. Adding change to file copy below. 
 
 ---
 
@@ -144,7 +144,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name touchdrums.com;
+    server_name www.touchdrums.com touchdrums.com;
     root /var/www/html/touchdrums.com/public_html/;
 
     location / {
