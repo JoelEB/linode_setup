@@ -103,7 +103,7 @@ It was about this time I noticed that restarting apache was returnign an error. 
 
 [This site](https://linode.com/docs/web-servers/nginx/how-to-configure-nginx/) was helpful. 
 
-But, [This guide](https://linode.com/docs/uptime/loadbalancing/use-nginx-as-a-front-end-proxy-and-software-load-balancer/) seemed to offer the solution. The problem is, I don't know if it's a proper solution. I followed most of the steps in `Configure Apache for Port Listening`, buti t was about that time I noticed the nginx .conf files might just need their root altered, just like it was in the apache .conf files (`root /var/www/html/example.com;`)
+But, [This guide](https://linode.com/docs/uptime/loadbalancing/use-nginx-as-a-front-end-proxy-and-software-load-balancer/) seemed to offer the solution. The problem is, I don't know if it's a proper solution. I deduced from reading this that both apache2 and nginx were competing on port 80. So the solution seemed to be changing the apache port to 8000. I followed most of the steps in `Configure Apache for Port Listening`, buti t was about that time I noticed the nginx .conf files might just need their root altered, just like it was in the apache .conf files (`root /var/www/html/example.com;`)
 
 After those changes, everythign seems to be running happily, including apache. And, both sites are now pointing to their appropriate `/var/www/html/site.com/public_html` directories! 
 
