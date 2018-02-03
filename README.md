@@ -129,7 +129,7 @@ This seems to be working with moderate success.
 
 I still can seem to access other files in `public_html`. Although, while http://touchdrums.com/phptest.php/ will show me the correct php page, http://www.touchdrums.com/phptest.php/, will not, it returns 404. 
 
-After uploading another test html page, neither www.touchdrums.com/electricblanket.html or touchdrums.com/electricblanket.html wil return anything. 
+After uploading another test html page, neither http://www.touchdrums.com/electricblanket.html or http://touchdrums.com/electricblanket.html wil return anything. 
 
 Very odd. 
 
