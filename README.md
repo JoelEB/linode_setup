@@ -1,6 +1,6 @@
-# linode_setup
+# Linode Setup
 
-Directions for setting up linode
+Directions for setting up virtual hosting on Linode (two domain names pointing to one ip address)
 
 
 1. Start [here](https://linode.com/docs/getting-started/).
