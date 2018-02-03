@@ -9,7 +9,7 @@ Directions for setting up linode
 
 3. Follow [this guide](https://linode.com/docs/websites/hosting-a-website/) but using [this Ubuntu 16.04 varient](https://linode.com/docs/web-servers/lamp/install-lamp-stack-on-ubuntu-16-04/).
 
-  * Make sure you add you host name to the hosts file 
+  * Make sure you add you host name to the hosts file, otherwise, `sudo` will complain. 
   ```
   sudo nano /etc/hosts
   ```
