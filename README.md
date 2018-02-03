@@ -138,33 +138,6 @@ Still can't get the random html pages to show up, but the www. vs no ww. issue w
 
 #### nginx .conf files
 
-`/etc/nginx/sites-available/touchdrums.com.conf` 
-
-```                    
-server {
-    listen 80;
-    listen [::]:80;
-
-    server_name www.touchdrums.com touchdrums.com;
-    root /var/www/html/touchdrums.com/public_html/;
-
-    location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header Host $http_host;
-        #proxy_pass http://127.0.0.1:2368;
-        proxy_pass http://127.0.0.1:8000;
-    }
-
-    location ~ /.well-known {
-        allow all;
-    }
-
-    client_max_body_size 50m;
-}
-```
-
 `sudo nano /etc/nginx/sites-available/joeleb.com.conf`
 
 ```
@@ -191,6 +164,32 @@ server {
 }
 ```
 
+`sudo nano /etc/nginx/sites-available/touchdrums.com.conf` 
+
+```                    
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name www.touchdrums.com touchdrums.com;
+    root /var/www/html/touchdrums.com/public_html/;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        #proxy_pass http://127.0.0.1:2368;
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location ~ /.well-known {
+        allow all;
+    }
+
+    client_max_body_size 50m;
+}
+```
 #### apache .conf files
 
 `sudo nano /etc/apache2/sites-available/joeleb.com.conf`
