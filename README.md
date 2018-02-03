@@ -89,7 +89,8 @@ sudo ls -la /etc/nginx/sites-enabled/
 
 After this, I was no longer seeing the defautl apache index.html page, however, now my second site was just pointing to my first. Furthermore, I could not access the phptest.php file or any other file that was supposed to be linked in the apache virtual host file (`/var/www/html/secondsite.com/public_html`). 
 
-7. Then I copied and linked the .conf file that was created (when ghost was installed?) for my second site. Not sure if this was actually necessary or not. 
+7. Then I copied and linked the .conf file that was created (when ghost was installed?) for my second site. ~~Not sure if this was actually necessary or not. ~~
+Seems like this was definitely necessary based on the solution found below. 
 
 ```
 sudo cp joeleb.com.conf touchdrums.com.conf
