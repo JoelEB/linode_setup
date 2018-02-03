@@ -121,11 +121,48 @@ Aaaan it's not working again. It worked for a little bit, but now the second sit
 /etc/init.d/apache2 status
 ```
 
-Back to being lost. 
+Next, I tried changing the `proxy_pass` in the nginx .conf files. After changing both to port 8000, touchdrums.com was back to working, but joeleb.com, was just a directory page. 
+
+So I split the different and left joeleb.com's .conf file as is and changed the touchdrums.com .conf file to point to port 8000 (see files below). 
+
+This seems to be working with moderate success. 
+
+I still can seem to access other files in `public_html`. Although, while http://touchdrums.com/phptest.php/ will show me the correct php page, http://www.touchdrums.com/phptest.php/, will not, it returns 404. 
+
+After uploading another test html page, neither www.touchdrums.com/electricblanket.html or touchdrums.com/electricblanket.html wil return anything. 
+
+Very odd. 
 
 ---
 
-#### nginx .conf file 
+#### nginx .conf files
+
+`/etc/nginx/sites-available/touchdrums.com.conf` 
+
+```                    
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name touchdrums.com;
+    root /var/www/html/touchdrums.com/public_html/;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        #proxy_pass http://127.0.0.1:2368;
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location ~ /.well-known {
+        allow all;
+    }
+
+    client_max_body_size 50m;
+}
+```
 
 `sudo nano /etc/nginx/sites-available/joeleb.com.conf`
 
@@ -153,7 +190,7 @@ server {
 }
 ```
 
-#### apache .conf file
+#### apache .conf files
 
 `sudo nano /etc/apache2/sites-available/joeleb.com.conf`
 
@@ -172,6 +209,28 @@ server {
 
         ErrorLog /var/www/html/joeleb.com/public_html/error.log
         CustomLog /var/www/html/joeleb.com/public_html/access.log combined
+
+</VirtualHost>
+```
+
+
+`sudo nano /etc/apache2/sites-available/touchdrums.com.conf`
+
+```
+<VirtualHost *:8000>
+        ServerName touchdrums.com
+        ServerAlias www.touchdrums.com
+        ServerAdmin webmaster@touchdrums.com
+        DocumentRoot /var/www/html/touchdrums.com/public_html
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog /var/www/html/touchdrums.com/public_html/error.log
+        CustomLog /var/www/html/touchdrums.com/public_html/access.log combined
 
 </VirtualHost>
 ```
