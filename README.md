@@ -132,7 +132,9 @@ This seems to be working with moderate success.
 
 After uploading another test html page, ~~neither http://www.touchdrums.com/electricblanket.html or http://touchdrums.com/electricblanket.html will return anything.~~
 
-Still can't get the random html pages to show up, but the www. vs no ww. issue was due to me not adding the second alias to the `server_name` in the nginx .conf file for touchdrums.com. Adding change to file copy below. 
+Still can't get the random html pages to show up, but the www. vs no www issue was due to me not adding the second alias to the `server_name` in the nginx .conf file for touchdrums.com. Adding change to file copy below. 
+
+Things seem to be working on both sites now, minus not being able to access my own html files. 
 
 ---
 
