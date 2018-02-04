@@ -35,6 +35,10 @@ sudo cp /etc/nginx/sites-available/joeleb.com /etc/nginx/sites-available/touchdr
 sudo nano /etc/nginx/sites-available/touchdrums.com
 sudo ln -s /etc/nginx/sites-available/joeleb.com /etc/nginx/sites-enabled
 sudo ln -s /etc/nginx/sites-available/touchdrums.com /etc/nginx/sites-enabled
+sudo mkdir -p /var/www/html/joeleb.com/public_html
+sudo mkdir -p /var/www/html/touchdrums.com/public_html
+sudo chown -R joel21987:joel21987 /var/www/html/joeleb.com/public_html/
+sudo chown -R joel21987:joel21987 /var/www/html/touchdrums.com/public_html/
 sudo rm /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
 ```
