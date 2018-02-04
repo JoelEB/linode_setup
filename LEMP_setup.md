@@ -1,4 +1,4 @@
-# Linode Setup
+# LEMP (Linux, EngineX, mySQL, PHP) setup
 
 Directions for setting up virtual hosting on Linode (two domain names pointing to one ip address)
 
@@ -107,3 +107,35 @@ sudo apt-get install mysql-server php7.0-mysq
 mysql -u root -p
 sudo systemctl restart php7.0-fpm
 ```
+
+#### Test
+```
+sudo nano /var/www/html/touchdrums.com/public_html/phptest.php
+```
+```
+<html>
+<head>
+    <title>PHP Test</title>
+</head>
+    <body>
+    <?php echo '<p>Hello World</p>';
+
+    // In the variables section below, replace user and password with your own MySQL credentials as created on your server
+    $servername = "localhost";
+    $username = "webuser";
+    $password = "password";
+
+    // Create MySQL connection
+    $conn = mysqli_connect($servername, $username, $password);
+
+    // Check connection - if it fails, output will include the error message
+    if (!$conn) {
+        exit('<p>Connection failed: <p>' . mysqli_connect_error());
+    }
+    echo '<p>Connected successfully</p>';
+    ?>
+</body>
+</html>
+```
+
+Vist site to test. 
