@@ -5,9 +5,19 @@ Directions for setting up virtual hosting on Linode (two domain names pointing t
 
 1. Start [here](https://linode.com/docs/getting-started/).
 
+```
+apt-get update && apt-get upgrade
+hostnamectl set-hostname example_hostname
+dpkg-reconfigure tzdata
+adduser example_user
+adduser example_user sudo
+```
+
 2. Follow first steps [here](https://linode.com/docs/security/securing-your-server/).
 
 3. Follow [this guide](https://linode.com/docs/websites/hosting-a-website/) but using [this Ubuntu 16.04 varient](https://linode.com/docs/web-servers/lamp/install-lamp-stack-on-ubuntu-16-04/).
+
+
 
   * Make sure you add you host name to the hosts file, otherwise, `sudo` will complain. 
   ```
