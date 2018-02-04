@@ -139,3 +139,15 @@ sudo nano /var/www/html/touchdrums.com/public_html/phptest.php
 ```
 
 Vist site to test. 
+
+### Ghost
+
+#### Install nodejs & ghost
+
+```
+sudo apt install build-essential
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt install nodejs
+sudo npm install -g ghost-cli@latest
+sudo ghost install
+```
