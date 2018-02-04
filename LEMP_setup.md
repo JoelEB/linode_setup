@@ -180,4 +180,40 @@ server {
 }
 ```
 
-Going to change this to the original as shown above and see what happens. 
+Tried mashing the two to gether, like so:
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+        server_name www.joeleb.com joeleb.com;
+    root /var/www/html/joeleb.com/public_html/;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:2368;
+
+    }
+
+    location ~ /.well-known {
+        allow all;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/joeleb.com/public_html$fastcgi_script_name;
+    }
+
+    client_max_body_size 50m;
+}
+```
+
+Which resulted in a 502 Bad Gateway. 
+
+
