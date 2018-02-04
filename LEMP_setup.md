@@ -151,3 +151,33 @@ sudo apt install nodejs
 sudo npm install -g ghost-cli@latest
 sudo ghost install
 ```
+
+Durring Ghost installation, you are asked to setup nginx or not. After choosing yes, a new `/etc.nginx/sites-avalable/joeleb.com/conf` file was created and linked. Here is what the default looks like:
+
+```
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name joeleb.com;
+    root /var/www/html/joeleb.com/public_html/system/nginx-root;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_pass http://127.0.0.1:2368;
+
+    }
+
+    location ~ /.well-known {
+        allow all;
+    }
+
+    client_max_body_size 50m;
+}
+```
+
+Going to change this to the original as shown above and see what happens. 
